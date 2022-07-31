@@ -17,7 +17,7 @@ function App() {
   const filterResponsee =response && response?.products?.filter((item) => (
     item?.name.toLowerCase().includes(selectone.toLowerCase()) && item.color.includes(selecttwo)
   ))
-    //SIRALAMA
+  //SIRALAMA
   useEffect(()=>{
     if (selectthree.includes("Order Z-A")) (
           setSortedResponse(filterResponsee?.sort((a, b) =>
@@ -38,10 +38,6 @@ function App() {
       )
   },[selectthree,selectone,selecttwo,response])
    
-  console.log(sortedResponse)
-
-
-
 
   return (
     <div className="App">
