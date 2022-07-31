@@ -1,37 +1,31 @@
+import { XIcon } from '@heroicons/react/outline';
 import React from 'react'
 import Modal from 'react-modal';
 
 
-
+Modal.setAppElement('#root');
 // Make sure to bind modal to your appElement (https://reactcommunity.org/react-modal/accessibility/)
 const Item = ({ item }) => {
-  const customStyles = {
-  content: {
-    top: '50%',
-    left: '50%',
-    right: 'auto',
-    bottom: 'auto',
-    transform: 'translate(-50%, -50%)',
-    
-  },
-};
-  let subtitle;
   const [modalIsOpen, setIsOpen] = React.useState(false);
+  const customStyles = {
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      border: "1px solid ",
+      transform: 'translate(-50%, -50%)',
 
+    },
+  };
   function openModal() {
     setIsOpen(true);
   }
-
-  function afterOpenModal() {
-    // references are now sync'd and can be accessed.
-    subtitle.style.color = '#f00';
-  }
-
-  function closeModal() {
+  function closeModal(e) {
+    e.stopPropagation();
     setIsOpen(false);
+    console.log(modalIsOpen)
   }
-
-
   return (
     <div className="w-64 p-2 flex  flex-col items-center my-4 " onClick={openModal}
       style={{ backgroundColor: `${item.color}`, color: item.color.includes('White') ? 'black' : 'white' }}
@@ -50,22 +44,22 @@ const Item = ({ item }) => {
 
       <Modal
         isOpen={modalIsOpen}
-        onAfterOpen={afterOpenModal}
         onRequestClose={closeModal}
         contentLabel="Example Modal"
+        ariaHideApp={false}
         style={customStyles}
       >
-      <div className='flex justify-center space-x-4'>
-        <img className='w-80 object-contain'  src={`./images/${item.image_name}.png`} alt="" />
-        <div>
-          <p>{item.name}</p>
-          <p>{item.id}</p>
+        <XIcon className=' cursor-pointer w-6 float-right' onClick={closeModal} />
+        <div className='flex justify-center  space-x-4 p-10 '>
+          <img className='w-80 object-contain ' src={`./images/${item.image_name}.png`} alt="" />
+          <div className='mt-3'>
+            <p className='text-3xl'>{item.name}</p>
+            <p className='mt-[5px] text-[12px] text-gray-600'>#{item.id}</p>
 
-          <p>{item.price}</p>
-
-          <button>Add To Cart</button>
+            <p className='mt-[5px] text-xl'>${item.price}</p>
+            <button className='mt-[260px] w-36 h-10 rounded-lg  border-white bg-black text-white '>Add To Cart</button>
+          </div>
         </div>
-      </div>
       </Modal>
 
     </div>
