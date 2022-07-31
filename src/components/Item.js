@@ -1,6 +1,5 @@
 import React from 'react'
 const Item = ({ item }) => {
-  //{`./images/${item.image_name}.png`}
   return (
     <div className="w-64 p-2 flex  flex-col items-center my-4"
       style={{ backgroundColor: `${item.color}`, color: item.color.includes('White') ? 'black' : 'white' }}
@@ -13,7 +12,7 @@ const Item = ({ item }) => {
             <p className='text-sm'>{item.price}</p>
             <p >{item.currency}</p>
           </div>
-          <p className='text-sm'>{item.category}</p>
+          <p className='text-sm1  '>{item.category}</p>
         </div>
       </div>
     </div>
