@@ -5,7 +5,7 @@ const Header = () => {
     <div className='flex items-center justify-between px-32 py-5 border-b-2 border-black'>
         <p className='text-xl cursor-pointer'>momentup.</p>
         
-        <ul className='flex space-x-5'>
+        <ul className='flex space-x-5 '>
             <li><a href="#">Home</a></li>
             <li><a href="#">About</a></li>
             <li><a href="#">Collection</a></li>

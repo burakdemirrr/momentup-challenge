@@ -7,11 +7,18 @@ const useAxios = () => {
     const [error,setError]=useState("");
 
     useEffect(()=>{
-        axios.get(`https://www.momentup.co/challange/ProductsWithFilter.json`)
+
+      const getData=async()=>{
+      await axios.get(`https://www.momentup.co/challange/ProductsWithFilter.json`)
         .then((res)=>setResponse(res.data))
         .catch((err)=>setError(err))
-        .finally(()=>setLoading(false))
-    },[])
+        .finally(()=>setLoading(false))  
+      }
+        
+        getData()
+    }
+  
+    ,[])
 
 
   return {response,loading,error}
