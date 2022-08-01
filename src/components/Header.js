@@ -5,14 +5,14 @@ const Header = () => {
     <div className='flex items-center justify-between px-32 py-5 border-b-2 border-black'>
         <a href="/" className='text-xl cursor-pointer'>momentup.</a>
         
-        <ul className='flex space-x-5 '>
+        <ul className='hidden md:flex space-x-5 '>
             <li><a href="/">Home</a></li>
             <li><a href="/">About</a></li>
             <li><a href="/">Collection</a></li>
             <li><a href="/">Lookbook</a></li>
         </ul>
 
-        <div className='flex space-x-2'>
+        <div className='flex space-x-3'>
             <HeartIcon className='w-6 h-6 cursor-pointer '/>
             <UserIcon className='w-6 h-6 cursor-pointer' />
             <ShoppingCartIcon className='w-6 h-6 cursor-pointer' />

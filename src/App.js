@@ -45,9 +45,9 @@ function App() {
 
       {
         options &&
-        <div className='text-center m-3 flex items-center justify-center'>
+        <div className='text-center m-3 flex items-center justify-center space-x-3 md:space-x-0'>
 
-          <div className='flex-1 space-x-9 ml-36'>
+          <div className='md:flex-1 flex-none space-x-3 md:space-x-9 ml-0 md:ml-36  '>
             <select className='w-[140px] text-center border-black border-2  py-2 ' value={selectone} onChange={(e) => setSelectOne(e.target.value)}>
               {
                 options[0]?.values.map((item, id) => (
