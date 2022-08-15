@@ -1,47 +1,50 @@
-import { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import './App.css';
-import Header from './components/Header';
-import Item from './components/Item';
 import useAxios from './hooks/useAxios';
+const LazyItem=React.lazy(()=>import('./components/Item'));
+const LazyHeader=React.lazy(()=>import('./components/Header'));
+
 
 function App() {
-  const { response} = useAxios();
+  const { response } = useAxios();
   const [selectone, setSelectOne] = useState("");
   const [selecttwo, setSelectTwo] = useState("");
   const [selectthree, setSelectThree] = useState("Order A-Z");
   const [sortedResponse, setSortedResponse] = useState([]);
   const options = response?.filter_options;
   const sortOptions = response.sort_options;
- 
+
   //FİLTRELEME
-  const filterResponsee =response && response?.products?.filter((item) => (
+  const filterResponsee = response && response?.products?.filter((item) => (
     item?.name.toLowerCase().includes(selectone.toLowerCase()) && item.color.includes(selecttwo)
   ))
   //SIRALAMA
-  useEffect(()=>{
+  useEffect(() => {
     if (selectthree.includes("Order Z-A")) (
-          setSortedResponse(filterResponsee?.sort((a, b) =>
-            a.name > b.name ? -1 : 1))
-        )
-        else if (selectthree.includes("Order A-Z")) (
-          setSortedResponse(filterResponsee?.sort((a, b) =>
-            a.name > b.name ? 1 : -1))
-        )
+      setSortedResponse(filterResponsee?.sort((a, b) =>
+        a.name > b.name ? -1 : 1))
+    )
+    else if (selectthree.includes("Order A-Z")) (
+      setSortedResponse(filterResponsee?.sort((a, b) =>
+        a.name > b.name ? 1 : -1))
+    )
 
-        else if (selectthree.includes("Highest price")) (
-          setSortedResponse(filterResponsee?.sort((a, b) =>
-            a.price > b.price ? -1 : 1))
-        )
-        else if (selectthree.includes("Lowest price")) (
-          setSortedResponse(filterResponsee?.sort((a, b) =>
-            a.price > b.price ? 1 : -1))
-      )
-  },[selectthree,selectone,selecttwo,response])
-   
+    else if (selectthree.includes("Highest price")) (
+      setSortedResponse(filterResponsee?.sort((a, b) =>
+        a.price > b.price ? -1 : 1))
+    )
+    else if (selectthree.includes("Lowest price")) (
+      setSortedResponse(filterResponsee?.sort((a, b) =>
+        a.price > b.price ? 1 : -1))
+    )
+  }, [selectthree, selectone, selecttwo, response])
+
 
   return (
     <div className="App">
-      <Header />
+      <Suspense fallback="..">
+        <LazyHeader />
+      </Suspense>
 
       {
         options &&
@@ -77,7 +80,9 @@ function App() {
       <div className='flex items-center justify-center flex-wrap space-x-2'>
         {sortedResponse &&
           sortedResponse?.map((item) => (
-            <Item key={item.id} item={item} />
+            <Suspense fallback="..">
+              <LazyItem key={item.id} item={item} />
+            </Suspense>
           ))
         }</div>
 
